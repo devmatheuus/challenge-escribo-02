@@ -14,7 +14,15 @@ export const GetOneUserService = async (userId: string) => {
         throw new AppError(400, 'Usuário não encontrado');
     }
 
-    const { password, ...userResponse } = user;
+    const userResponse = {
+        id: user.id,
+        nome: user.name,
+        email: user.email,
+        data_criacao: user.createdAt,
+        data_atualizacao: user.updatedAt,
+        ultimo_login: user.lastLogin,
+        telefones: user.phones,
+    };
 
     return userResponse;
 };
