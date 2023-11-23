@@ -22,7 +22,7 @@ export const globalErrorMiddleware = async (
 ) => {
     if (error instanceof AppError) {
         return response.status(error.statusCode).json({
-            message: error.message,
+            mensagem: error.message,
         });
     }
 
@@ -47,6 +47,6 @@ export const globalErrorMiddleware = async (
     console.error(error);
 
     return response.status(500).json({
-        message: 'Internal server error',
+        mensagem: 'Internal server error',
     });
 };
