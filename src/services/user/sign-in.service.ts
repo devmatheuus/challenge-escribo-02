@@ -12,21 +12,26 @@ export const SignInService = async ({ email, senha: password }: SignInSchemaType
     const user = await userRepository.findOneBy({ email });
 
     if (!user) {
-        throw new AppError(400, 'Usuário e/ou senha inválidos');
+        throw new AppError(401, 'Usuário e/ou senha inválidos');
     }
 
     const matchPassword = await compare(password, user.password);
 
     if (!matchPassword) {
-        throw new AppError(400, 'Usuário e/ou senha inválidos');
+        throw new AppError(401, 'Usuário e/ou senha inválidos');
     }
 
     await userRepository.update(user.id, { lastLogin: new Date() });
 
-    const token = jwt.sign({}, process.env.SECRET_KEY as Secret, {
-        expiresIn: '30m',
-        subject: user.id,
-    });
+    const token = jwt.sign(
+        {
+            exp: Math.floor(Date.now() / 1000) + 30 * 60,
+            data: {
+                id: user.id,
+            },
+        },
+        process.env.SECRET_KEY as Secret
+    );
 
     const userResponse = {
         id: user.id,
