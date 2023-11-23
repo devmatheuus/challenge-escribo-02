@@ -24,7 +24,7 @@ const phoneSchema = z.object(
             }, 'O DDD deve conter apenas caracteres numéricos'),
     },
     {
-        required_error: 'Os telefones são obrigatórios here',
+        required_error: 'Os telefones são obrigatórios',
         invalid_type_error:
             'Os telefones devem seguir o seguinte formato: {"numero": 123456789, "dd": 11}',
     }
@@ -57,7 +57,7 @@ export const createUserSchema = z.object({
         .array(phoneSchema, {
             invalid_type_error: 'Os telefones devem ser um array',
             description: 'Os telefones devem ser um array',
-            required_error: 'Os telefones são obrigatórios aqui',
+            required_error: 'Os telefones são obrigatórios',
         })
         .refine(
             (phones) => (phones.length <= 0 ? false : true),
