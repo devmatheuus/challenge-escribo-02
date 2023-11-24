@@ -1,0 +1,210 @@
+openapi: 3.0.0
+
+info:
+    description: |-
+        <div align="center">
+          <h1 align="center">Escribo API</h1>
+
+          <h3 align="center">Version: 1.0.0</h3>
+
+          <p align="center">
+            Documentação contendo todas as rotas da API Escribo
+          </p>
+        </div>
+tags:
+    - name: Users
+      description: Ações relacionadas a usuários
+
+servers:
+    - url: https://challenge-escribo-02.onrender.com
+      description: produção
+
+components:
+    securitySchemes:
+        bearerAuth:
+            type: http
+            scheme: bearer
+            bearerFormat: JWT
+
+paths:
+    /users/signup:
+        post:
+            tags:
+                - Users
+            description: |-
+                <h2>Descrição</h2>
+                <p>Rota responsável por cadastrar um novo usuário. A rota conta com uma forte validação dos dados enviados e é capaz de retornar respostas para os mais variados tipos de erro.</p>
+            requestBody:
+                required: true
+                content:
+                    application/json:
+                        schema:
+                            type: object
+                            properties:
+                                nome:
+                                    type: string
+                                email:
+                                    type: string
+                                senha:
+                                    type: string
+                                    format: password
+                                telefones:
+                                    type: array
+                                    items:
+                                        type: object
+                                        properties:
+                                            numero:
+                                                type: string
+                                            ddd:
+                                                type: string
+            responses:
+                '201':
+                    description: Usuário cadastrado com sucesso
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                properties:
+                                    id:
+                                        type: string
+                                    data_criacao:
+                                        type: string
+                                        format: date-time
+                                    data_atualizacao:
+                                        type: string
+                                        format: date-time
+                                    ultimo_login:
+                                        type: string
+                                        format: date-time
+                                        example: null
+                                    token:
+                                        type: string
+                                        example: null
+                '400':
+                    description: Erro de validação
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                properties:
+                                    mensagem:
+                                        type: string
+                                        example: 'E-mail já existente'
+    /users/signin:
+        post:
+            tags:
+                - Users
+            description: |-
+                <h2>Descrição</h2>
+                <p>Rota responsável por autenticar um usuário. A rota conta com uma forte validação dos dados enviados e é capaz de retornar respostas para os mais variados tipos de erro.</p>
+            requestBody:
+                required: true
+                content:
+                    application/json:
+                        schema:
+                            type: object
+                            properties:
+                                email:
+                                    type: string
+                                senha:
+                                    type: string
+                                    format: password
+            responses:
+                '200':
+                    description: Usuário autenticado com sucesso
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                properties:
+                                    id:
+                                        type: string
+                                    data_criacao:
+                                        type: string
+                                        format: date-time
+                                    data_atualizacao:
+                                        type: string
+                                        format: date-time
+                                    ultimo_login:
+                                        type: string
+                                        format: date-time
+                                    token:
+                                        type: string
+                '401':
+                    description: Usuário não autorizado
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                properties:
+                                    mensagem:
+                                        type: string
+                                        example: 'Usuário e/ou senha inválidos'
+    /users/{id}:
+        get:
+            tags:
+                - Users
+            security:
+                - bearerAuth: []
+            description: |-
+                <h2>Descrição</h2>
+                <p>Rota responsável por buscar um usuário. A rota conta com uma forte validação dos dados enviados e é capaz de retornar respostas para os mais variados tipos de erro.</p>
+            parameters:
+                - name: id
+                  in: path
+                  required: true
+                  description: ID do usuário
+                  schema:
+                      type: string
+            responses:
+                '200':
+                    description: Usuário encontrado com sucesso
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                properties:
+                                    id:
+                                        type: string
+                                    nome:
+                                        type: string
+                                    email:
+                                        type: string
+                                    data_criacao:
+                                        type: string
+                                        format: date-time
+                                    data_atualizacao:
+                                        type: string
+                                        format: date-time
+                                    ultimo_login:
+                                        type: string
+                                        format: date-time
+                                    telefones:
+                                        type: array
+                                        items:
+                                            type: object
+                                            properties:
+                                                numero:
+                                                    type: string
+                                                ddd:
+                                                    type: string
+                '401':
+                    description: Usuário não autorizado ou token expirado
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                properties:
+                                    mensagem:
+                                        type: string
+                                        example: 'Não autorizado/Token expirado'
+                '400':
+                    description: Usuário não encontrado
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                properties:
+                                    mensagem:
+                                        type: string
+                                        example: 'Usuário não encontrado'
