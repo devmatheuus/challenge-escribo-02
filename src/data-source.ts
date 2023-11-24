@@ -12,7 +12,7 @@ const AppDataSource = new DataSource({
     database: isTestEnvironment ? process.env.POSTGRES_DB_TEST : process.env.POSTGRES_DB,
     synchronize: isTestEnvironment,
     logging: false,
-    entities: ['src/entities/*.ts'],
-    migrations: ['src/migrations/*.ts'],
+    entities: [__dirname + '/../**/*.entities{.ts,.js}'],
+    migrations: [__dirname + '/../**/*.migrations{.ts,.js}'],
 });
 export default AppDataSource;

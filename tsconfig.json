@@ -9,7 +9,7 @@
         "experimentalDecorators": true,
         "emitDecoratorMetadata": true,
         "module": "commonjs",
-        "baseUrl": "./",
+        "baseUrl": ".",
         "paths": {
             "@/*": [
                 "src/*"
@@ -19,7 +19,7 @@
             "node_modules/@types",
             "src/@types"
         ],
-        "outDir": "./build",
+        "outDir": "./build/src",
         "esModuleInterop": true,
         "forceConsistentCasingInFileNames": true,
         "strict": true,
@@ -32,6 +32,6 @@
     ],
     "exclude": [
         "node_modules",
-        "build"
+        "src/__tests__"
     ]
 }
