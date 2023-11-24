@@ -26,9 +26,6 @@ Para testar os endpoints criados, acesse a documentação: https://challenge-esc
 ---
 
 ```
-# Não altere a variável DB_HOST
-
-
 POSTGRES_USER="postgres-user"
 POSTGRES_PASSWORD="postgres-password"
 POSTGRES_DB="postgres-db-name"
@@ -70,7 +67,7 @@ https://challenge-escribo-02.onrender.com
 
 ## Testes
 
-O projeto conta com testes unitários e testes de integração, para executá-los digite o seguinte comando em seu terminal:
+O projeto conta com testes unitários, para executá-los digite o seguinte comando em seu terminal:
 
 ```
   npm run test
