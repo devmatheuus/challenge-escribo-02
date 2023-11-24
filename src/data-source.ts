@@ -10,7 +10,7 @@ const AppDataSource = new DataSource({
     username: process.env.POSTGRES_USER,
     password: process.env.POSTGRES_PASSWORD,
     database: isTestEnvironment ? process.env.POSTGRES_DB_TEST : process.env.POSTGRES_DB,
-    synchronize: isTestEnvironment,
+    synchronize: true,
     logging: false,
     entities: [__dirname + '/../**/*.entities{.ts,.js}'],
     migrations: [__dirname + '/../**/*.migrations{.ts,.js}'],
