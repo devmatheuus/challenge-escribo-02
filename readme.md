@@ -41,7 +41,7 @@ PORT=3000
 -   _Após configurar o arquivo **.env** e ter as dependências do projeto instaladas, execute o seguinte comando em seu terminal para criar as tabelas:_
 
 ```
-npm run typeorm migration:run -d src/data-source.ts
+npm run typeorm migration:run -- -d src/data-source.ts
 ```
 
 _Após a criação das tabelas, inicie a aplicação com o comando:_
