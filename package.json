@@ -8,7 +8,7 @@
         "typeorm": "typeorm-ts-node-commonjs",
         "test": "NODE_ENV=test jest",
         "coverage": "jest --colors --coverage",
-        "build": "tsc && cp ./tsconfig.json ./build/",
+        "build": "tsc && cp ./tsconfig.json ./build/ && cp ./src/documentation.yml ./build/src/",
         "start:production": "npm run build && node -r module-alias/register -r tsconfig-paths/register ./node_modules/ts-node/dist/bin.js --project ./build/tsconfig.json ./build/src/server.js"
     },
     "keywords": [],
